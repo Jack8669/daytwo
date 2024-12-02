@@ -1,0 +1,105 @@
+How to start docker image ubuntu:20.04 in windows and work in it in windows step by step guide
+
+To start the Docker image `ubuntu:20.04` on a Windows system and work with it, follow these step-by-step instructions:
+
+---
+
+### **1. Install Docker on Windows**
+1. **Download Docker Desktop**:
+   - Visit the [Docker Desktop](https://www.docker.com/products/docker-desktop) website and download the installer for Windows.
+
+2. **Install Docker Desktop**:
+   - Run the installer and follow the on-screen instructions.
+   - Restart your system if prompted.
+
+3. **Enable WSL2** (if not already enabled):
+   - Docker Desktop requires Windows Subsystem for Linux 2 (WSL2) for optimal performance.
+   - Follow Docker's instructions to install and enable WSL2.
+
+4. **Start Docker Desktop**:
+   - Launch Docker Desktop and ensure it’s running (check the Docker icon in the system tray).
+
+---
+
+### **2. Pull the Ubuntu Image**
+1. **Open a Terminal**:
+   - Open a terminal window like Command Prompt, PowerShell, or Windows Terminal.
+
+2. **Pull the `ubuntu:20.04` Image**:
+   Run the following command to download the image:
+   ```bash
+   docker pull ubuntu:20.04
+   ```
+   - This downloads the Ubuntu 20.04 image from Docker Hub.
+
+---
+
+### **3. Run the Ubuntu Image**
+1. **Start a Container**:
+   To start a container interactively, run:
+   ```bash
+   docker run -it --name ubuntu-container ubuntu:20.04
+   ```
+   - `-it`: Starts an interactive session.
+   - `--name ubuntu-container`: Assigns a name to your container for easier management.
+
+2. **Access the Shell**:
+   - This command launches a Bash shell inside the container.
+   - You are now working inside an Ubuntu 20.04 environment.
+
+---
+
+### **4. Work Inside the Ubuntu Container**
+1. **Run Commands**:
+   You can execute Ubuntu/Linux commands within the container. For example:
+   ```bash
+   apt update && apt install -y nano
+   ```
+   - Updates the package lists and installs a text editor.
+
+2. **Save Changes (Optional)**:
+   If you make changes and want to save the container state, commit it as a new image:
+   ```bash
+   docker commit ubuntu-container my-custom-ubuntu:1.0
+   ```
+
+---
+
+### **5. Stop and Restart the Container**
+1. **Stop the Container**:
+   ```bash
+   docker stop ubuntu-container
+   ```
+
+2. **Restart the Container**:
+   ```bash
+   docker start -ai ubuntu-container
+   ```
+   - The `-ai` flag reattaches the interactive terminal to the container.
+
+---
+
+### **6. Remove the Container and Image (Optional)**
+- **To Delete the Container**:
+  ```bash
+  docker rm ubuntu-container
+  ```
+- **To Delete the Image**:
+  ```bash
+  docker rmi ubuntu:20.04
+  ```
+
+---
+
+### **Tips for Windows Users**
+- **File Sharing**:
+  To share files between Windows and the container, use volume mounts. For example:
+  ```bash
+  docker run -it -v C:\mydata:/data ubuntu:20.04
+  ```
+  - This maps the `C:\mydata` folder on Windows to the `/data` folder inside the container.
+
+- **Use Docker Desktop’s GUI**:
+  Docker Desktop provides a graphical interface to manage containers and images.
+
+Let me know if you need more details!
