@@ -1,0 +1,98 @@
+Here's a step-by-step guide for installing Docker on an Ubuntu system:
+
+---
+
+### **Step 1: Update the Package Index**
+Ensure your system packages are up to date:
+```bash
+sudo apt update
+sudo apt upgrade -y
+```
+
+---
+
+### **Step 2: Install Required Packages**
+Install necessary dependencies for Docker installation:
+```bash
+sudo apt install -y apt-transport-https ca-certificates curl software-properties-common
+```
+
+---
+
+### **Step 3: Add Docker's Official GPG Key**
+Fetch Docker's GPG key and add it to your system:
+```bash
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+```
+
+---
+
+### **Step 4: Add Docker's Official Repository**
+Add Docker's repository to your system's sources:
+```bash
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+```
+
+---
+
+### **Step 5: Install Docker**
+1. Update the package index again to include Docker packages:
+   ```bash
+   sudo apt update
+   ```
+2. Install Docker:
+   ```bash
+   sudo apt install -y docker-ce docker-ce-cli containerd.io
+   ```
+
+---
+
+### **Step 6: Verify Docker Installation**
+1. Check the Docker version:
+   ```bash
+   docker --version
+   ```
+   Example output:
+   ```
+   Docker version 24.0.5, build a8d54b2
+   ```
+
+2. Run the "Hello World" container to confirm installation:
+   ```bash
+   sudo docker run hello-world
+   ```
+   This pulls the "hello-world" image from Docker Hub and runs it in a container.
+
+---
+
+### **Step 7: Manage Docker as a Non-Root User (Optional)**
+To avoid using `sudo` for Docker commands:
+1. Add your user to the `docker` group:
+   ```bash
+   sudo usermod -aG docker $USER
+   ```
+2. Log out and back in, or restart your terminal.
+
+---
+
+### **Step 8: Enable Docker to Start on Boot**
+Enable Docker to start automatically on system boot:
+```bash
+sudo systemctl enable docker
+```
+
+---
+
+### **Common Issues**
+- **Error: Docker daemon not running**  
+  Start the Docker service:
+  ```bash
+  sudo systemctl start docker
+  ```
+
+- **Permission Denied with Docker Socket**  
+  Ensure you added your user to the `docker` group (Step 7).
+
+---
+
+Now you're ready to use Docker on your Ubuntu system. Let me know if you need further assistance!
